@@ -16,8 +16,10 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center p-4">
-        <h2>Soft Book Share</h2>
+      <div className="flex justify-between items-center p-4 ">
+        <h2 className="font-bold cursor-pointer">
+          <Link href={"/"}>Soft Book Share</Link>
+        </h2>
         <div className="flex gap-4">
           <Input type="text" placeholder="Search..." />
           <div>

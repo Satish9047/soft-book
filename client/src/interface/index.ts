@@ -8,9 +8,10 @@ export interface User {
 
 export interface Book {
   id: string;
-  title: string;
+  name: string;
   author: string;
-  genre: string;
-  createdAt: string;
-  updatedAt: string;
+  image: string;
+  genre?: string;
+  url?: "string";
+  description: string;
 }

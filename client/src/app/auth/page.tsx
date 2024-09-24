@@ -13,6 +13,10 @@ const Page = () => {
     rePassword: "",
   });
 
+  const handleToggleAccount = () => {
+    setHasAccount(!hasAccount);
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -40,18 +44,19 @@ const Page = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="h-[calc(100vh-5rem)] flex flex-col justify-center items-center">
+      <div className="w-full max-w-md">
         <h1>Welcome to Soft Book Share</h1>
-        <form onSubmit={handleSubmit}>
-          <h2>{hasAccount ? "Login" : "Register"}</h2>
-          <div>
+        <form onSubmit={handleSubmit} className="w-full">
+          <h2 className="text-center">{hasAccount ? "Login" : "Register"}</h2>
+          <div className="space-y-4">
             {!hasAccount ? (
               <div>
                 <label htmlFor="fName">Full Name</label>
                 <Input
                   name="fName"
                   type="text"
+                  required
                   placeholder="Full Name"
                   value={formData.fName}
                   onChange={handleInputChange}
@@ -64,6 +69,7 @@ const Page = () => {
                 name="email"
                 type="email"
                 placeholder="Email"
+                required
                 value={formData.email}
                 onChange={handleInputChange}
               />
@@ -74,6 +80,7 @@ const Page = () => {
                 <Input
                   name="contact"
                   type="tel"
+                  required
                   placeholder="Contact Number"
                   value={formData.contact}
                   onChange={handleInputChange}
@@ -86,6 +93,7 @@ const Page = () => {
                 name="password"
                 type="password"
                 placeholder="Password"
+                required
                 value={formData.password}
                 onChange={handleInputChange}
               />
@@ -96,13 +104,29 @@ const Page = () => {
                 <Input
                   name="rePassword"
                   type="password"
+                  required
                   placeholder="Re-Enter Password"
                   value={formData.rePassword}
                   onChange={handleInputChange}
                 />
               </div>
             ) : null}
-            <div>
+            <div className="flex justify-between font-bold">
+              {hasAccount ? (
+                <p
+                  onClick={handleToggleAccount}
+                  className="text-blue-700 cursor-pointer"
+                >
+                  Register Here
+                </p>
+              ) : (
+                <p
+                  onClick={handleToggleAccount}
+                  className="text-blue-700 cursor-pointer"
+                >
+                  Login Here
+                </p>
+              )}
               <Button type="submit">{hasAccount ? "Login" : "Register"}</Button>
             </div>
           </div>

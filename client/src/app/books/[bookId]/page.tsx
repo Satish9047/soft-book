@@ -18,27 +18,33 @@ const Page = ({ params }: { params: { bookId: string } }) => {
         <h2>Book Overview</h2>
       </div>
       <div className="flex flex-row gap-4">
-        <div className="w-2/3">
+        <div className="w-2/3 space-y-4">
           <figure>
             <Image
               src={book.image}
               alt={book.name}
               width={400}
               height={250}
-              className="w-full h-[500px] fill-none mx-auto"
+              className="w-full h-[550px] fill-none mx-auto"
             />
           </figure>
           <div>
             <p className="text-justify">{book.description}</p>
           </div>
         </div>
-        <div className="w-1/3">
-          <div>
+        <div className="w-1/3 space-y-4">
+          <div className="border-2 p-2 rounded-md">
             <Button>Download Pdf</Button>
           </div>
-          <div>
-            <h3>{book.name}</h3>
-            <h3>{book.author}</h3>
+          <div className="border-2 p-2 rounded-md">
+            <h3>
+              <span>Title: </span>
+              {book.name}
+            </h3>
+            <h3>
+              <span>Author: </span>
+              {book.author}
+            </h3>
           </div>
         </div>
       </div>

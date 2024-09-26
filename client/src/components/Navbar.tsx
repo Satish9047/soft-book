@@ -21,7 +21,11 @@ const Navbar = () => {
           <Link href={"/"}>Soft Book Share</Link>
         </h2>
         <div className="flex gap-4">
-          <Input type="text" placeholder="Search..." />
+          <Input
+            type="text"
+            placeholder="Search..."
+            className="hidden md:flex"
+          />
           <div>
             <ThemeBtn />
           </div>
@@ -52,7 +56,7 @@ const Navbar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div>
+              <div className=" hidden md:flex">
                 <Link href="auth">
                   <Button>Login/Register</Button>
                 </Link>

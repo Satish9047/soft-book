@@ -17,22 +17,22 @@ const Page = ({ params }: { params: { bookId: string } }) => {
       <div>
         <h2>Book Overview</h2>
       </div>
-      <div className="flex flex-row gap-4">
-        <div className="w-2/3 space-y-4">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="w-full md:w-2/3 space-y-4">
           <figure>
             <Image
               src={book.image}
               alt={book.name}
               width={400}
               height={250}
-              className="w-full h-[550px] fill-none mx-auto"
+              className="w-full md:h-[550px] fill-none mx-auto"
             />
           </figure>
           <div>
             <p className="text-justify">{book.description}</p>
           </div>
         </div>
-        <div className="w-1/3 space-y-4">
+        <div className="w-full md:w-1/3 space-y-4">
           <div className="border-2 p-2 rounded-md">
             <Button>Download Pdf</Button>
           </div>

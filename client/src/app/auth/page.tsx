@@ -1,114 +1,98 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import { Field, FieldValues, useForm } from "react-hook-form";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { signInSchema } from "@/schema/signInSchema";
+import { signUpSchema } from "@/schema/signUpSchema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const [hasAccount, setHasAccount] = useState(false);
-  const [formData, setFormData] = useState({
-    fName: "",
-    email: "",
-    contact: "",
-    password: "",
-    rePassword: "",
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: zodResolver(hasAccount ? signInSchema : signUpSchema),
   });
 
   const handleToggleAccount = () => {
     setHasAccount(!hasAccount);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (hasAccount) {
-      //login
-      console.log("Logging in with:", {
-        email: formData.email,
-        password: formData.password,
-      });
-    } else {
-      //register
-      if (formData.password !== formData.rePassword) {
-        console.error("Passwords do not match");
-        return;
-      }
-      console.log("Registering with:", formData);
-    }
+  const onSubmit = (data: FieldValues) => {
+    console.log("hello");
+    console.log(data);
+    reset();
   };
 
   return (
     <div className="h-[calc(100vh-5rem)] flex flex-col justify-center items-center">
       <div className="w-full max-w-md">
         <h1>Welcome to Soft Book Share</h1>
-        <form onSubmit={handleSubmit} className="w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <h2 className="text-center">{hasAccount ? "Login" : "Register"}</h2>
           <div className="space-y-4">
             {!hasAccount ? (
               <div>
-                <label htmlFor="fName">Full Name</label>
+                <label>Full Name</label>
                 <Input
-                  name="fName"
                   type="text"
-                  required
+                  {...register("name")}
                   placeholder="Full Name"
-                  value={formData.fName}
-                  onChange={handleInputChange}
                 />
+                {errors?.name && (
+                  <p className="text-red-500">{`${errors.name.message}`}</p>
+                )}
               </div>
             ) : null}
             <div>
-              <label htmlFor="email">Email</label>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-                value={formData.email}
-                onChange={handleInputChange}
-              />
+              <label>Email</label>
+              <Input type="email" {...register("email")} placeholder="Email" />
+              {errors?.email && (
+                <p className="text-red-500">{`${errors.email.message}`}</p>
+              )}
             </div>
             {!hasAccount ? (
               <div>
-                <label htmlFor="contact">Contact No.</label>
+                <label>Contact No.</label>
                 <Input
-                  name="contact"
                   type="tel"
-                  required
+                  {...register("contact")}
                   placeholder="Contact Number"
-                  value={formData.contact}
-                  onChange={handleInputChange}
                 />
+                {errors?.contact && (
+                  <p className="text-red-500">{`${errors.contact.message}`}</p>
+                )}
               </div>
             ) : null}
             <div>
-              <label htmlFor="password">Password</label>
+              <label>Password</label>
               <Input
-                name="password"
                 type="password"
+                {...register("password")}
                 placeholder="Password"
-                required
-                value={formData.password}
-                onChange={handleInputChange}
               />
+              {errors?.password && (
+                <p className="text-red-500">{`${errors.password.message}`}</p>
+              )}
             </div>
             {!hasAccount ? (
               <div>
-                <label htmlFor="rePassword">Re-Enter Password</label>
+                <label>Re-Enter Password</label>
                 <Input
-                  name="rePassword"
                   type="password"
-                  required
+                  {...register("rePassword")}
                   placeholder="Re-Enter Password"
-                  value={formData.rePassword}
-                  onChange={handleInputChange}
                 />
+                {errors?.rePassword && (
+                  <p className="text-red-500">{`${errors.rePassword.message}`}</p>
+                )}
               </div>
             ) : null}
             <div className="flex justify-between font-bold">
@@ -137,3 +121,37 @@ const Page = () => {
 };
 
 export default Page;
+
+// const [formData, setFormData] = useState({
+//   fName: "",
+//   email: "",
+//   contact: "",
+//   password: "",
+//   rePassword: "",
+// });
+
+// const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const { name, value } = e.target;
+//   setFormData((prevFormData) => ({
+//     ...prevFormData,
+//     [name]: value,
+//   }));
+// };
+
+// const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
+//   if (hasAccount) {
+//     //login
+//     console.log("Logging in with:", {
+//       email: formData.email,
+//       password: formData.password,
+//     });
+//   } else {
+//     //register
+//     if (formData.password !== formData.rePassword) {
+//       console.error("Passwords do not match");
+//       return;
+//     }
+//     console.log("Registering with:", formData);
+//   }
+// };
